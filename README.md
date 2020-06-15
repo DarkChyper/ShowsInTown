@@ -8,3 +8,4 @@ Application web permettant de lister les concerts de la base de données, de les
 
   * Création des entités "artist" et "city"
   * Création de l'entité "event"
+  * création des routes, du controller et des vues de base
