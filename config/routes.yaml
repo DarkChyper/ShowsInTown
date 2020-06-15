@@ -1,7 +1,19 @@
 homepage:
   path: /
-  controller: App\Controller\ShowsInTownController::index
+  controller: App\Controller\HomeController::index
 
 dashboard:
   path: /dashboard
-  controller: App\Controller\ShowsInTownController::dashboard
+  controller: App\Controller\DashBoardController::dashboard
+
+event_edit:
+  path: /dashboard/edit/{id}
+  controller: App\Controller\DashBoardController::edit
+  requirements:
+    id: '\d+'
+
+event_remove:
+  path: /dashboard/remove/{id}
+  controller: App\Controller\DashBoardController::remove
+  requirements:
+    id: '\d+'

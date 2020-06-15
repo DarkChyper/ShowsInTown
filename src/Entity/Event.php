@@ -3,6 +3,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -25,10 +26,13 @@ class Event
     protected $id;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
+     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Date(message="La date doit être au format JJ/MM/YYYY")
+     *
      */
     protected $date;
 
@@ -36,13 +40,13 @@ class Event
      * @ORM\ManyToOne(targetEntity="App\Entity\Artist")
      * @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
      */
-    protected $artistId;
+    protected $artist;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\City")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      */
-    protected $cityId;
+    protected $city;
 
     /**
      * Event constructor.
@@ -68,17 +72,17 @@ class Event
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getDate(): \DateTime
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }
 
     /**
-     * @param \DateTime $date
+     * @param DateTime $date
      */
-    public function setDate(\DateTime $date): void
+    public function setDate(DateTime $date): void
     {
         $this->date = $date;
     }
@@ -86,36 +90,34 @@ class Event
     /**
      * @return mixed
      */
-    public function getArtistId()
+    public function getArtist()
     {
-        return $this->artistId;
+        return $this->artist;
     }
 
     /**
-     * @param mixed $artistId
+     * @param mixed $artist
      */
-    public function setArtistId($artistId): void
+    public function setArtist($artist): void
     {
-        $this->artistId = $artistId;
+        $this->artist = $artist;
     }
 
     /**
      * @return mixed
      */
-    public function getCityId()
+    public function getCity()
     {
-        return $this->cityId;
+        return $this->city;
     }
 
     /**
-     * @param mixed $cityId
+     * @param mixed $city
      */
-    public function setCityId($cityId): void
+    public function setCity($city): void
     {
-        $this->cityId = $cityId;
+        $this->city = $city;
     }
-
-
 
 
 }

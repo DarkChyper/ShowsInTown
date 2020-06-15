@@ -8,10 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ShowsInTownController
+ * Class HomeController
  * @package App\Controller
  */
-class ShowsInTownController extends AbstractController
+class HomeController extends AbstractController
 {
 
     /**
@@ -20,15 +20,6 @@ class ShowsInTownController extends AbstractController
     public function index(){
         return $this->render('homepage/home.html.twig', [
             'current_page' => 'homepage',
-        ]);
-    }
-
-    /**
-     * @return Response
-     */
-    public function dashboard(){
-        return $this->render('dashboard/dashboard.html.twig', [
-            'current_page' => 'dashboard',
         ]);
     }
 }

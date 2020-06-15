@@ -12,8 +12,21 @@ class DateService
     const YEAR = "years";
 
     /**
+     * DateService constructor.
+     */
+    public function __construct()
+    {
+    }
+
+
+    /**
+     * Get the $time $unit date in the future
+     * ie today + 3 months
+     * $unit are defines by constants DAY, WEEK, MONTH and YEAR
+     * return today date if $unit is anything else
+     *
      * @param int $time
-     * @param $unit
+     * @param string $unit
      * @return false|string
      */
     public function getDateInFuture(int $time,$unit){

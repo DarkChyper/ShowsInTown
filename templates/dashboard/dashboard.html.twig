@@ -1,7 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home | {{ parent() }}{% endblock %}
+{% block title %}DashBoard | {{ parent() }}{% endblock %}
 
 {% block body %}
-<h1>DashBoard</h1>
+    <div class="row" id="formcard">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">Créer un nouvel événement</h5>
+                    {% include('common/form/editEvent.html.twig') %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="formcard">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">Liste des évènements</h5>
+                    {% include('dashboard/listEvent.html.twig') %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}

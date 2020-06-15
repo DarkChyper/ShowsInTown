@@ -1,0 +1,31 @@
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Artiste</th>
+            <th scope="col">Lieu</th>
+            <th scope="col">Modifier</th>
+            <th scope="col">Supprimer</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <th scope="row">{{ event.date | date("d/m/Y") }}</th>
+                <td>{{ event.artist.name }}</td>
+                <td>{{ event.city.name }}</td>
+                <td>
+                    <button type="button" class="btn btn-warning btn-sm" disabled>Modifier</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm" disabled>Supprimer</button>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ knp_pagination_render(events) }}
+</div>
