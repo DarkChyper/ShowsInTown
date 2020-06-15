@@ -6,4 +6,4 @@ Application web permettant de lister les concerts de la base de données, de les
 
 ## v0.1.0 La base
 
-  
+  * Création des entités "artist" et "city"
