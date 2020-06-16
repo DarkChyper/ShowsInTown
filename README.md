@@ -4,8 +4,11 @@ Application web permettant de lister les concerts de la base de données, de les
 
 # Versions
 
-## v0.1.0 La base
+## v0.1.0 
 
   * Création des entités "artist" et "city"
   * Création de l'entité "event"
-  * création des routes, du controller et des vues de base
+  * Création des routes, du controller et des vues de base
+  * Création d'un évènement OK
+  * Suppression d'un évènement OK
+  
