@@ -12,18 +12,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="artist")
  * @ORM\Entity(repositoryClass="App\Repository\ArtistRepository")
+ *
  */
 class Artist
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $_id;
-
     /**
      * @var string name of the artist
      * @ORM\Column(name="name", type="string", length=45, unique=true)
@@ -35,6 +27,14 @@ class Artist
      *     maxMessage = "Le nom d'artiste ne peut exéder {{ limit }} caractères.")
      */
     protected $name;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $_id;
 
     /**
      * Artist constructor.
@@ -74,7 +74,6 @@ class Artist
     {
         $this->name = $name;
     }
-
 
 
 }

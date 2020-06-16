@@ -13,7 +13,7 @@ event_edit:
     id: '\d+'
 
 event_remove:
-  path: /dashboard/remove/{id}
+  path: /dashboard/remove-event/{id}
   controller: App\Controller\DashBoardController::remove
   requirements:
     id: '\d+'

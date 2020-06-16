@@ -9,6 +9,7 @@ use App\Form\Type\EventType;
 use App\Service\EventService;
 use App\Service\MessageFlashService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,5 +43,17 @@ class DashBoardController extends AbstractController
             'eventForm' => $eventForm->createView(),
             'events' => $events
         ]);
+    }
+
+    public function remove(int $id, EventService $eventService, MessageFlashService $messageFlashService){
+        $result = $eventService->delete($id);
+        if($result === 1){
+            $messageFlashService->messageSuccess("Evénement supprimé");
+        } else {
+            $messageFlashService->messageWarning("L'évènement '". $id . "' n'existe pas");
+        }
+
+        return new RedirectResponse($this->generateUrl('dashboard'));
+
     }
 }

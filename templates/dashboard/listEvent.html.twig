@@ -20,7 +20,10 @@
                     <button type="button" class="btn btn-warning btn-sm" disabled>Modifier</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm" disabled>Supprimer</button>
+                    <form action="{{ path("event_remove",{'id':event.id}) }}" method="get"
+                          onsubmit="return confirm('Supprimer l\'évènement {{ event.date | date("d/m/Y") }} {{ event.artist.name }} {{ event.city.name }} ?');">
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
                 </td>
 
             </tr>
@@ -28,4 +31,6 @@
         </tbody>
     </table>
     {{ knp_pagination_render(events) }}
+
+
 </div>

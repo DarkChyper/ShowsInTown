@@ -7,6 +7,7 @@ use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Class Event
  * @package App\Entity
@@ -39,6 +40,7 @@ class Event
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Artist")
      * @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
+     * @Assert\Type(type={"App\Entity\Artist"}, message="Cette artist n'est pas dans notre base de données")
      */
     protected $artist;
 

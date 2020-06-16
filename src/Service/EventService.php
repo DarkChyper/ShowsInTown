@@ -10,10 +10,10 @@ use Knp\Component\Pager\PaginatorInterface;
 
 class EventService
 {
-    private $_paginatorFirstPage;
-    private $_paginatorEltByPage;
     protected $em;
     protected $paginator;
+    private $_paginatorFirstPage;
+    private $_paginatorEltByPage;
 
     /**
      * EventService constructor.
@@ -41,6 +41,15 @@ class EventService
         $this->em->flush();
     }
 
+    /**
+     * @param int $id
+     * @return int 1 if deleted 0 if not exist
+     */
+    public function delete(int $id)
+    {
+        return $this->em->getRepository(Event::class)->removeEvent($id);
+    }
+
 
     /**
      * @param $page Number by offset $limit
@@ -56,6 +65,10 @@ class EventService
             $limit
         );
         $pagination->setTemplate('@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig');
+        $pagination->setSortableTemplate('@KnpPaginator/Pagination/twitter_bootstrap_v4_filtration.html.twig');
+        $pagination->setCustomParameters([
+            'align' => 'center'
+        ]);
         return $pagination;
     }
 

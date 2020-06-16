@@ -23,8 +23,8 @@ class EventType extends AbstractType
                 'required' => true,
                 'widget' => 'single_text',
                 'html5' => false,
-                'format' => 'yyyy-mm-dd',
-                'invalid_message' => "La date doit être au format AAAA/MM/JJ.",
+                'format' => 'dd/MM/yyyy',
+                'invalid_message' => "La date doit être au format JJ/MM/AAAA.",
             ])
             ->add('city', EntityType::class, [
                 'class' => City::class,

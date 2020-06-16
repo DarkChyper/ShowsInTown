@@ -24,4 +24,18 @@ class EventRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param int $id
+     * @return int|mixed|string
+     */
+    public function removeEvent(int $id)
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->delete('App:Event', 'e')
+            ->where('e.id = :id')
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->execute();
+    }
 }
