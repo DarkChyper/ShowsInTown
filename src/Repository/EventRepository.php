@@ -4,10 +4,35 @@
 namespace App\Repository;
 
 
-use Doctrine\ORM\EntityRepository;
+use App\Entity\Event;
+use App\Exception\PersistEventException;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\ORMException;
 
-class EventRepository extends EntityRepository
+
+class EventRepository extends ServiceEntityRepository
 {
+
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Event::class);
+    }
+
+    /**
+     * Persist Event in db
+     * @param Event $event
+     * @throws PersistEventException
+     */
+    public function saveEvent(Event $event){
+        try {
+            $this->getEntityManager()->persist($event);
+            $this->getEntityManager()->flush();
+        } catch (ORMException $e) {
+            throw new PersistEventException($e->getMessage());
+        }
+    }
+
     /**
      * @return array|int|string
      */

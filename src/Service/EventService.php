@@ -5,12 +5,12 @@ namespace App\Service;
 
 
 use App\Entity\Event;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\EventRepository;
 use Knp\Component\Pager\PaginatorInterface;
 
 class EventService
 {
-    protected $em;
+    protected $eventRepository;
     protected $paginator;
     private $_paginatorFirstPage;
     private $_paginatorEltByPage;
@@ -19,14 +19,14 @@ class EventService
      * EventService constructor.
      * @param int $paginatorFirstPage
      * @param int $paginatorEltByPage
-     * @param EntityManagerInterface $entityManager
+     * @param EventRepository $eventRepository
      * @param PaginatorInterface $paginator
      */
-    public function __construct(int $paginatorFirstPage, int $paginatorEltByPage, EntityManagerInterface $entityManager, PaginatorInterface $paginator)
+    public function __construct(int $paginatorFirstPage, int $paginatorEltByPage, EventRepository $eventRepository, PaginatorInterface $paginator)
     {
         $this->_paginatorFirstPage = $paginatorFirstPage;
         $this->_paginatorEltByPage = $paginatorEltByPage;
-        $this->em = $entityManager;
+        $this->eventRepository = $eventRepository;
         $this->paginator = $paginator;
     }
 
@@ -37,8 +37,7 @@ class EventService
      */
     public function save(Event $event)
     {
-        $this->em->persist($event);
-        $this->em->flush();
+        $this->eventRepository->saveEvent($event);
     }
 
     /**
@@ -60,7 +59,7 @@ class EventService
     {
 
         $pagination = $this->paginator->paginate(
-            $this->em->getRepository(Event::class)->getAllEvents(),
+            $this->eventRepository->getAllEvents(),
             $page,
             $limit
         );
