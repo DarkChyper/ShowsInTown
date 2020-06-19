@@ -12,6 +12,10 @@ body {
     box-shadow: 0px 0px 40px 5px rgba(180, 8, 29, 0.57);
 }
 
+div.hidden {
+    display: none;
+}
+
 /* menu */
 .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
     color: rgba(180, 8, 29, 1);

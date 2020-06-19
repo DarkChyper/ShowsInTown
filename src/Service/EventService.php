@@ -5,6 +5,7 @@ namespace App\Service;
 
 
 use App\Entity\Event;
+use App\Exception\PersistEventException;
 use App\Repository\EventRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -28,7 +29,7 @@ class EventService
      * @param TranslatorInterface $translator
      * @param PaginatorInterface $paginator
      */
-    public function __construct(int $paginatorFirstPage, int $paginatorEltByPage, EventRepository $eventRepository, MessageFlashService $messageFlashService,TranslatorInterface $translator,  PaginatorInterface $paginator)
+    public function __construct(int $paginatorFirstPage, int $paginatorEltByPage, EventRepository $eventRepository, MessageFlashService $messageFlashService, TranslatorInterface $translator, PaginatorInterface $paginator)
     {
         $this->_paginatorFirstPage = $paginatorFirstPage;
         $this->_paginatorEltByPage = $paginatorEltByPage;
@@ -42,11 +43,33 @@ class EventService
      * Persist entity Event
      *
      * @param Event $event
+     * @throws PersistEventException
      */
     public function save(Event $event)
     {
-        $this->eventRepository->saveEvent($event);
+        if ($event->getCityChoice() > 0) {
+            if (!$this->eventRepository->updateEvent($event)) {
+                throw new PersistEventException($this->translator->trans("edit_event.msf.error", ['{{id}}' => $event->getId()]));
+            }
+        } else {
+            $this->eventRepository->saveEvent($event);
+        }
         $this->mfs->messageSuccess($this->translator->trans("edit_event.msf.success"));
+
+    }
+
+    /**
+     * @param $id
+     * @return object
+     * @throws PersistEventException
+     */
+    public function getEvent($id)
+    {
+        $event = $this->eventRepository->findOneBy(["id" => $id]);
+        if(!$event){
+            throw new PersistEventException($this->translator->trans("edit_event.msf.error", ['{{id}}' => $id]));
+        }
+        return $event;
     }
 
     /**
@@ -56,7 +79,7 @@ class EventService
     public function delete(int $id)
     {
         $result = $this->eventRepository->removeEvent($id);
-        if($result === 1){
+        if ($result === 1) {
             $this->mfs->messageSuccess($this->translator->trans("remove_event.msf.success"));
         } else {
             $this->mfs->messageWarning($this->translator->trans("remove_event.msf.warning.begin") . " " . $id . " " . $this->translator->trans("remove_event.msf.warning.end"));

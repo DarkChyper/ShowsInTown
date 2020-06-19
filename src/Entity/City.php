@@ -40,6 +40,7 @@ class City
      */
     public function __construct()
     {
+        $this->_id = 1;
     }
 
     /**

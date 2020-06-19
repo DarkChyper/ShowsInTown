@@ -1,0 +1,37 @@
+# commun
+twig.format.date: M/d/Y
+datepicker.locale.date: mm/dd/yyyy
+
+# menu
+menu.logo.alt: Shows In Town logo
+menu.home: Homepage
+menu.dashboard: DashBoard
+
+# dashboard
+dashboard.title.edit: Editer l'évènement
+dashboard.title.create: Créer un nouvel événement
+dashboard.title.list: Liste des évènements
+
+## edit/create form
+form.edit.event.date: Date
+form.edit.event.date.help: Date format MM/DD/YYYY
+form.edit.event.date.format: MM/dd/yyyy
+
+form.edit.event.artist: Artist
+form.edit.event.city: Place
+form.edit.event.submit: Save
+
+## listing
+list_event.tab.date: Date
+list_event.tab.artist: Artist
+list_event.tab.city: Place
+list_event.tab.modify: Modify
+list_event.tab.delete: Delete
+list_event.delete.confirm.begin: Delete the event \'
+list_event.delete.confirm.end: \' ?
+
+# edit-event
+edit_event.msf.success: Registration completed
+edit_event.msf.error: Event {{id}} does not exist
+# remove-event
+remove_event.msf.success: Event deleted

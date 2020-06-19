@@ -50,10 +50,21 @@ class Event
     protected $city;
 
     /**
+     * @var int
+     */
+    protected $artistChoice;
+
+    /**
+     * @var int
+     */
+    protected $cityChoice;
+
+    /**
      * Event constructor.
      */
     public function __construct()
     {
+        $this->id = 0;
     }
 
     /**
@@ -120,5 +131,52 @@ class Event
         $this->city = $city;
     }
 
+    /**
+     * @return int
+     */
+    public function getArtistChoice(): ?int
+    {
+        return $this->artistChoice;
+    }
 
+    /**
+     * @param int $artistChoice
+     */
+    public function setArtistChoice(int $artistChoice): void
+    {
+        $this->artistChoice = $artistChoice;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCityChoice(): ?int
+    {
+        return $this->cityChoice;
+    }
+
+    /**
+     * @param int $cityChoice
+     */
+    public function setCityChoice(int $cityChoice): void
+    {
+        $this->cityChoice = $cityChoice;
+    }
+
+
+
+    /**
+     *
+     */
+    public function prepareToEdit(){
+        if($this->city !== null){
+            $this->setCityChoice($this->getCity()->getId());
+            $this->city = null;
+        }
+        if($this->artist !== null){
+            $this->setArtistChoice($this->getArtist()->getId());
+            $this->artist = null;
+        }
+
+    }
 }

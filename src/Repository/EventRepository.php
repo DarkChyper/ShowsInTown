@@ -8,7 +8,10 @@ use App\Entity\Event;
 use App\Exception\PersistEventException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\TransactionRequiredException;
+use phpDocumentor\Reflection\Types\Integer;
 
 
 class EventRepository extends ServiceEntityRepository
@@ -51,6 +54,22 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param Integer $id
+     * @return int|mixed|string
+     */
+    public function findOneByIdWithJoins(int $id){
+        $qb = $this->createQueryBuilder('e')
+            ->addSelect('e')
+            ->join('e.artist', 'artiste')
+            ->addSelect('artiste')
+            ->join('e.city', 'city')
+            ->addSelect('city')
+            ->where('e.id = :id')
+            ->setParameter('id', $id);
+        return $qb->getQuery()->getResult();
+    }
+
+    /**
      * @param int $id
      * @return int|mixed|string
      */
@@ -62,5 +81,31 @@ class EventRepository extends ServiceEntityRepository
             ->setParameter('id', $id);
 
         return $qb->getQuery()->execute();
+    }
+
+    public function updateEvent(Event $event)
+    {
+        $retour = true;
+
+        try {
+            $em = $this->getEntityManager();
+            $eventDB = $em->find(Event::class, $event->getId());
+            if(!$eventDB){
+                $retour = false;
+            } else {
+                $eventDB->setDate($event->getDate());
+                $eventDB->setCity($event->getCity());
+                $eventDB->setArtist($event->getArtist());
+
+                $em->flush();
+            }
+
+        } catch (OptimisticLockException $e) {
+        } catch (TransactionRequiredException $e) {
+        } catch (ORMException $e) {
+            $retour = false;
+        }
+
+        return $retour;
     }
 }

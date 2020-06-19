@@ -26,6 +26,7 @@ class Artist
      *     maxMessage = "artist.name.length.max")
      */
     protected $name;
+
     /**
      * @var int
      *
@@ -40,6 +41,7 @@ class Artist
      */
     public function __construct()
     {
+        $this->_id = 1;
     }
 
     /**

@@ -11,11 +11,13 @@
         <div class="col-6 col-md-3">{{ event.artist.name }}</div>
         <div class="col-6 col-md-3">{{ event.city.name }}</div>
         <div class="col-6 col-md-2">
-            <button type="button" class="btn btn-warning btn-sm" disabled>{{ 'list_event.tab.modify' | trans  }}</button>
+            <form action="{{ path("event_edit",{'id':event.id}) }}" method="get">
+            <button type="submit" class="btn btn-warning btn-sm">{{ 'list_event.tab.modify' | trans  }}</button>
+            </form>
         </div>
         <div class="col-6 col-md-2 offset-md-0">
             <form action="{{ path("event_remove",{'id':event.id}) }}" method="get"
-                  onsubmit="return confirm('{{ 'list_event.delete.confirm.begin' | trans }}{{ event.date | localizeddate('short','none',app.request.locale) }} {{ event.artist.name }} {{ event.city.name }} {{ 'list_event.delete.confirm.end' | trans }}');">
+                  onsubmit="return confirm('{{ 'list_event.delete.confirm.begin' | trans() }}{{ event.date | localizeddate('short','none',app.request.locale) }} {{ event.artist.name }} {{ event.city.name }} {{ 'list_event.delete.confirm.end' | trans }}');">
                 <button type="submit" class="btn btn-danger btn-sm">{{ 'list_event.tab.delete' | trans }}</button>
             </form>
         </div>

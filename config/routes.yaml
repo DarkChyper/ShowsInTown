@@ -18,7 +18,7 @@ event_edit:
   path:
     fr: /dashboard/edit-event/{id}
     en: /{_locale}/dashboard/edit-event/{id}
-  controller: App\Controller\DashBoardController::edit
+  controller: App\Controller\DashBoardController::editEvent
   requirements:
     _locale: fr_FR|en_EN
     id: '\d+'
@@ -27,7 +27,15 @@ event_remove:
   path:
     fr: /dashboard/remove-event/{id}
     en: /{_locale}/dashboard/remove-event/{id}
-  controller: App\Controller\DashBoardController::remove
+  controller: App\Controller\DashBoardController::removeEvent
   requirements:
     _locale: fr_FR|en_EN
     id: '\d+'
+
+session_event_delete:
+  path:
+    fr: /dashboard/session-event/delete
+    en: /{_locale}/dashboard/session-event/delete
+  controller: App\Controller\DashBoardController::deleteSessionEvent
+  requirements:
+    _locale: fr_FR|en_EN

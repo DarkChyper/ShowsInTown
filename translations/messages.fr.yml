@@ -1,5 +1,6 @@
 # commun
 twig.format.date: d/M/Y
+datepicker.locale.date: dd/mm/yyyy
 
 # menu
 menu.logo.alt: Logo de Shows In Town
@@ -7,13 +8,15 @@ menu.home: Accueil
 menu.dashboard: Tableau de bord
 
 # dashboard
-dashboard.title.edit: Editer l'évènement
+dashboard.title.edit: Editer l'évènement n°
+dashboard.title.btn: Annuler
 dashboard.title.create: Créer un nouvel événement
 dashboard.title.list: Liste des évènements
 
 ## edit/create form
 form.edit.event.date: Date
 form.edit.event.date.help: Date au format DD/MM/AAAA
+form.edit.event.date.format: dd/MM/yyyy
 
 form.edit.event.artist: Artiste
 form.edit.event.city: Lieu
@@ -28,10 +31,10 @@ list_event.tab.delete: Supprimer
 list_event.delete.confirm.begin: Supprimer l\'évènement \'
 list_event.delete.confirm.end: \' ?
 
+
 # edit-event
 edit_event.msf.success: Enregistrement effectué
+edit_event.msf.error: L'évènement {{id}} n'existe pas
 
 # remove-event
 remove_event.msf.success: Evènement Supprimé
-remove_event.msf.warning.begin: L'évènement
-remove_event.msf.warning.end:  n'existe pas
