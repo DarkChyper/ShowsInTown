@@ -30,9 +30,7 @@ class Event
      * @var DateTime
      *
      * @ORM\Column(name="date", type="date", nullable=false)
-     * @Assert\NotNull()
-     * @Assert\NotBlank()
-     * @Assert\Date(message="La date doit être au format JJ/MM/YYYY")
+     * @Assert\Date(message="event.date.date")
      *
      */
     protected $date;
@@ -40,13 +38,14 @@ class Event
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Artist")
      * @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
-     * @Assert\Type(type={"App\Entity\Artist"}, message="Cette artist n'est pas dans notre base de données")
+     * @Assert\Type(type={"App\Entity\Artist"}, message="event.artist.type")
      */
     protected $artist;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\City")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     * @Assert\Type(type={"App\Entity\City"}, message="event.artist.city")
      */
     protected $city;
 

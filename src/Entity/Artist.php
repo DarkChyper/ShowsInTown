@@ -19,12 +19,11 @@ class Artist
     /**
      * @var string name of the artist
      * @ORM\Column(name="name", type="string", length=45, unique=true)
-     * @Assert\NotBlank
      * @Assert\Length(
      *     min        = 2,
      *     max        = 45,
-     *     minMessage = "Le nom d'artiste doit contenir au moins {{ limit }} caractères",
-     *     maxMessage = "Le nom d'artiste ne peut exéder {{ limit }} caractères.")
+     *     minMessage = "artist.name.length.min",
+     *     maxMessage = "artist.name.length.max")
      */
     protected $name;
     /**

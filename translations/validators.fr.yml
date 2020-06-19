@@ -1,0 +1,12 @@
+# event
+event.date.date: La date doit être au format JJ/MM/YYYY
+event.artist.type: Cet artiste n'est pas dans notre base de données
+event.artist.city: Cette ville n'est pas dans notre base de données
+
+# artist
+artist.name.length.min: Le nom d'artiste doit contenir au moins {{ limit }} caractères
+artist.name.length.max: Le nom d'artiste ne peut exéder {{ limit }} caractères
+
+# city
+city.name.length.min: La ville doit contenir au moins {{ limit }} caractères
+city.name.length.max: La ville ne peut exéder {{ limit }} caractères

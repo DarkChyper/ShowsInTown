@@ -27,12 +27,11 @@ class City
     /**
      * @var string name of the city
      * @ORM\Column(name="name", type="string", length=45, unique=true)
-     * @Assert\NotBlank
      * @Assert\Length(
      *     min        = 2,
      *     max        = 45,
-     *     minMessage = "La ville doit contenir au moins {{ limit }} caractères",
-     *     maxMessage = "La ville ne peut exéder {{ limit }} caractères.")
+     *     minMessage = "city.name.length.min",
+     *     maxMessage = "city.name.length.max")
      */
     protected $name;
 
