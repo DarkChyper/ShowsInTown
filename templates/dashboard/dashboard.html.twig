@@ -8,8 +8,14 @@
             <div class="card">
 
                 <div class="card-body">
-                    <h5 class="card-title">Créer un nouvel événement</h5>
-                    {% include('common/form/editEvent.html.twig') %}
+                    <h5 class="card-title">
+                        {% if isedit is defined and isedit %}
+                            {{ 'dashboard.title.edit' | trans }}
+                        {% else %}
+                            {{ 'dashboard.title.create' | trans }}
+                        {% endif %}
+                    </h5>
+                    {% include('dashboard/form/editEvent.html.twig') %}
                 </div>
             </div>
         </div>
@@ -20,7 +26,7 @@
             <div class="card">
 
                 <div class="card-body">
-                    <h5 class="card-title">Liste des évènements</h5>
+                    <h5 class="card-title">{{ 'dashboard.title.list' | trans }}</h5>
                     {% include('dashboard/listEvent.html.twig') %}
                 </div>
             </div>

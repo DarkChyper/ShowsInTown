@@ -1,19 +1,33 @@
 homepage:
-  path: /
+  path:
+    fr: /
+    en: /{_locale}
   controller: App\Controller\HomeController::index
+  requirements:
+    _locale: fr_FR|en_EN
 
 dashboard:
-  path: /dashboard
+  path:
+    fr: /dashboard
+    en: /{_locale}/dashboard
   controller: App\Controller\DashBoardController::dashboard
+  requirements:
+    _locale: fr_FR|en_EN
 
 event_edit:
-  path: /dashboard/edit/{id}
+  path:
+    fr: /dashboard/edit-event/{id}
+    en: /{_locale}/dashboard/edit-event/{id}
   controller: App\Controller\DashBoardController::edit
   requirements:
+    _locale: fr_FR|en_EN
     id: '\d+'
 
 event_remove:
-  path: /dashboard/remove-event/{id}
+  path:
+    fr: /dashboard/remove-event/{id}
+    en: /{_locale}/dashboard/remove-event/{id}
   controller: App\Controller\DashBoardController::remove
   requirements:
+    _locale: fr_FR|en_EN
     id: '\d+'

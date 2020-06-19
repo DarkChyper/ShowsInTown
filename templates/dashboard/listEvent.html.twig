@@ -1,35 +1,28 @@
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Artiste</th>
-            <th scope="col">Lieu</th>
-            <th scope="col">Modifier</th>
-            <th scope="col">Supprimer</th>
+<div class="row tab-header">
+    <div class="col-12 col-md-2 tab-role-col">{{ 'list_event.tab.date' | trans | upper }}</div>
+    <div class="col-6 col-md-3 tab-role-col">{{ 'list_event.tab.artist' | trans | upper }}</div>
+    <div class="col-6 col-md-3 tab-role-col">{{ 'list_event.tab.city' | trans | upper }}</div>
+    <div class="col-6 col-md-2 tab-role-col">{{ 'list_event.tab.modify' | trans | upper }}</div>
+    <div class="col-6 col-md-2 tab-role-col">{{ 'list_event.tab.delete' | trans | upper }}</div>
+</div>
+{% for event in events %}
+    <div class="row tab-row-striped">
+        <div class="col-12 col-md-2 tab-role-row">{{ event.date | localizeddate('short','none',app.request.locale) }}</div>
+        <div class="col-6 col-md-3">{{ event.artist.name }}</div>
+        <div class="col-6 col-md-3">{{ event.city.name }}</div>
+        <div class="col-6 col-md-2">
+            <button type="button" class="btn btn-warning btn-sm" disabled>{{ 'list_event.tab.modify' | trans  }}</button>
+        </div>
+        <div class="col-6 col-md-2 offset-md-0">
+            <form action="{{ path("event_remove",{'id':event.id}) }}" method="get"
+                  onsubmit="return confirm('{{ 'list_event.delete.confirm.begin' | trans }}{{ event.date | localizeddate('short','none',app.request.locale) }} {{ event.artist.name }} {{ event.city.name }} {{ 'list_event.delete.confirm.end' | trans }}');">
+                <button type="submit" class="btn btn-danger btn-sm">{{ 'list_event.tab.delete' | trans }}</button>
+            </form>
+        </div>
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for event in events %}
-            <tr>
-                <th scope="row">{{ event.date | date("d/m/Y") }}</th>
-                <td>{{ event.artist.name }}</td>
-                <td>{{ event.city.name }}</td>
-                <td>
-                    <button type="button" class="btn btn-warning btn-sm" disabled>Modifier</button>
-                </td>
-                <td>
-                    <form action="{{ path("event_remove",{'id':event.id}) }}" method="get"
-                          onsubmit="return confirm('Supprimer l\'évènement {{ event.date | date("d/m/Y") }} {{ event.artist.name }} {{ event.city.name }} ?');">
-                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                    </form>
-                </td>
+    </div>
+{% endfor %}
 
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
     {{ knp_pagination_render(events) }}
 
 

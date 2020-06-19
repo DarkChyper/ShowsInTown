@@ -1,0 +1,37 @@
+# commun
+twig.format.date: d/M/Y
+
+# menu
+menu.logo.alt: Logo de Shows In Town
+menu.home: Accueil
+menu.dashboard: Tableau de bord
+
+# dashboard
+dashboard.title.edit: Editer l'évènement
+dashboard.title.create: Créer un nouvel événement
+dashboard.title.list: Liste des évènements
+
+## edit/create form
+form.edit.event.date: Date
+form.edit.event.date.help: Date au format DD/MM/AAAA
+
+form.edit.event.artist: Artiste
+form.edit.event.city: Lieu
+form.edit.event.submit: Enregistrer
+
+## listing
+list_event.tab.date: Date
+list_event.tab.artist: Artiste
+list_event.tab.city: Lieu
+list_event.tab.modify: Modifier
+list_event.tab.delete: Supprimer
+list_event.delete.confirm.begin: Supprimer l\'évènement \'
+list_event.delete.confirm.end: \' ?
+
+# edit-event
+edit_event.msf.success: Enregistrement effectué
+
+# remove-event
+remove_event.msf.success: Evènement Supprimé
+remove_event.msf.warning.begin: L'évènement
+remove_event.msf.warning.end:  n'existe pas

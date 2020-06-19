@@ -7,11 +7,15 @@ namespace App\Service;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EventService
 {
     protected $eventRepository;
+    protected $mfs;
+    protected $translator;
     protected $paginator;
+
     private $_paginatorFirstPage;
     private $_paginatorEltByPage;
 
@@ -20,13 +24,17 @@ class EventService
      * @param int $paginatorFirstPage
      * @param int $paginatorEltByPage
      * @param EventRepository $eventRepository
+     * @param MessageFlashService $messageFlashService
+     * @param TranslatorInterface $translator
      * @param PaginatorInterface $paginator
      */
-    public function __construct(int $paginatorFirstPage, int $paginatorEltByPage, EventRepository $eventRepository, PaginatorInterface $paginator)
+    public function __construct(int $paginatorFirstPage, int $paginatorEltByPage, EventRepository $eventRepository, MessageFlashService $messageFlashService,TranslatorInterface $translator,  PaginatorInterface $paginator)
     {
         $this->_paginatorFirstPage = $paginatorFirstPage;
         $this->_paginatorEltByPage = $paginatorEltByPage;
         $this->eventRepository = $eventRepository;
+        $this->mfs = $messageFlashService;
+        $this->translator = $translator;
         $this->paginator = $paginator;
     }
 
@@ -38,15 +46,21 @@ class EventService
     public function save(Event $event)
     {
         $this->eventRepository->saveEvent($event);
+        $this->mfs->messageSuccess($this->translator->trans("edit_event.msf.success"));
     }
 
     /**
+     * Delete event by id
      * @param int $id
-     * @return int 1 if deleted 0 if not exist
      */
     public function delete(int $id)
     {
-        return $this->em->getRepository(Event::class)->removeEvent($id);
+        $result = $this->eventRepository->removeEvent($id);
+        if($result === 1){
+            $this->mfs->messageSuccess($this->translator->trans("remove_event.msf.success"));
+        } else {
+            $this->mfs->messageWarning($this->translator->trans("remove_event.msf.warning.begin") . " " . $id . " " . $this->translator->trans("remove_event.msf.warning.end"));
+        }
     }
 
 

@@ -1,7 +1,7 @@
 {{ form_start(eventForm) }}
 <div class="form-row">
     <div class="form-group col-md-10 offset-md-1">
-        <label id="eventDateLabel" for="event_date">Date</label>
+        <label id="eventDateLabel" for="event_date">{{ 'form.edit.event.date' | trans }}</label>
         {% if form_errors(eventForm.date) != null %}
             <spall id="eventDateError" class="form-text text-danger form-error">{{ form_errors(eventForm.date) }}</spall>
         {% endif %}
@@ -10,12 +10,12 @@
                 'class': 'form-control js-datepicker'
             }
         }) }}
-        <small id="eventDateInfo" class="form-text text-muted">Date au format DD/MM/AAAA</small>
+        <small id="eventDateInfo" class="form-text text-muted">{{ 'form.edit.event.date.help' | trans }}</small>
     </div>
 </div>
 <div class="form-row">
     <div class="form-group col-md-4 offset-md-1">
-        <label for="event_artist">Artiste</label>
+        <label for="event_artist">{{ 'form.edit.event.artist' | trans }}</label>
         {% if form_errors(eventForm.artist) != null %}
             <small id="eventArtistError" class="form-text text-danger form-error">{{ form_errors(eventForm.artist) }}</small>
         {% endif %}
@@ -26,7 +26,7 @@
         }) }}
     </div>
     <div class="form-group col-md-4 offset-md-2">
-        <label for="event_city">Lieu</label>
+        <label for="event_city">{{ 'form.edit.event.city' | trans }}</label>
         {% if form_errors(eventForm.city) != null %}
             <spall id="eventCityError" class="form-text text-danger form-error">{{ form_errors(eventForm.city) }}</spall>
         {% endif %}
@@ -38,7 +38,7 @@
     </div>
     <div class="form-group col-md-12 offset-md-1">
         <button type="submit" class="btn btn-primary" id="submit">
-            <span>Enregistrer</span>
+            <span>{{ 'form.edit.event.submit' | trans }}</span>
         </button>
     </div>
 </div>

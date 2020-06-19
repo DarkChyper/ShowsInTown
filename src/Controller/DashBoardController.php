@@ -33,7 +33,6 @@ class DashBoardController extends AbstractController
 
         if($eventForm->isSubmitted() && $eventForm->isValid()){
             $eventService->save($event);
-            $messageFlashService->messageSuccess("Enregistrement effectué");
         }
 
         $events = $eventService->getAllEventByPage($request->query->getInt('page',$this->getParameter('paginator.first.page')), $this->getParameter('paginator.elt.by.page'));
@@ -45,13 +44,13 @@ class DashBoardController extends AbstractController
         ]);
     }
 
-    public function remove(int $id, EventService $eventService, MessageFlashService $messageFlashService){
-        $result = $eventService->delete($id);
-        if($result === 1){
-            $messageFlashService->messageSuccess("Evénement supprimé");
-        } else {
-            $messageFlashService->messageWarning("L'évènement '". $id . "' n'existe pas");
-        }
+    /**
+     * @param int $id
+     * @param EventService $eventService
+     * @return RedirectResponse
+     */
+    public function remove(int $id, EventService $eventService){
+        $eventService->delete($id);
 
         return new RedirectResponse($this->generateUrl('dashboard'));
 
