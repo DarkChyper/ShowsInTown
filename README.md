@@ -7,6 +7,7 @@ Application web permettant de lister les concerts de la base de données, de les
 ## TODO
 
   * Autocomplétion du champ de recherche d'artiste
+  * paginer les résultats en page accueil
   * placer un logger
   * tests
 
