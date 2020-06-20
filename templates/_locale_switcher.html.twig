@@ -1,0 +1,15 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+
+{% for locale in locales %}
+    {% if locale != app.request.locale %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path(route, params|merge({ _locale: locale })) }}">
+                <img class="locale-icon" src="{{ asset('assets/img/flags/' ~ locale ~ '.png') }}"
+                     alt="{{ locale }}">
+            </a>
+        </li>
+    {% endif %}
+
+{% endfor %}

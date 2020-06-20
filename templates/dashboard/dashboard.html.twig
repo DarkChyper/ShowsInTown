@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DashBoard | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row bottom-marged" id="dashboardFormEvent">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {% if currentEvent.cityChoice > 0 %}
+                            {{ 'dashboard.title.edit' | trans }}{{ currentEvent.id }}
+                            <a href="{{ path("session_event_delete") }}" class="btn btn-danger btn-sm">{{ 'dashboard.title.btn' | trans }}</a>
+                        {% else %}
+                            {{ 'dashboard.title.create' | trans }}
+                        {% endif %}
+                    </h5>
+                    {% include('dashboard/form/editEvent.html.twig') %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="dashboardListEvent">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ 'dashboard.title.list' | trans }}</h5>
+                    {% include('dashboard/listEvent.html.twig') %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+

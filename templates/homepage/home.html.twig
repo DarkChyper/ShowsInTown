@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row bottom-marged" id="homepageFilterForm">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {{ 'home.filter.title' | trans }}
+                    </h5>
+                    <div>
+                        <small class="text-muted">{{ 'home.filter.info' | trans }}</small>
+                    </div>
+                    {% include('homepage/form/filter.html.twig') %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="homepageListEvent">
+        <div class="col">
+            <div class="card">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ 'home.title.list' | trans }}</h5>
+                    {% if events is not empty %}
+                        {% include('homepage/home.list.html.twig') %}
+                    {% else %}
+                        <div class="alert alert-warning">{{ 'home.list.empty' | trans }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

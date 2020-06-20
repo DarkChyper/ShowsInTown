@@ -1,3 +1,41 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+homepage:
+  path:
+    fr: /
+    en: /{_locale}
+  controller: App\Controller\HomeController::index
+  requirements:
+    _locale: fr_FR|en_EN
+
+dashboard:
+  path:
+    fr: /dashboard
+    en: /{_locale}/dashboard
+  controller: App\Controller\DashBoardController::dashboard
+  requirements:
+    _locale: fr_FR|en_EN
+
+event_edit:
+  path:
+    fr: /dashboard/edit-event/{id}
+    en: /{_locale}/dashboard/edit-event/{id}
+  controller: App\Controller\DashBoardController::editEvent
+  requirements:
+    _locale: fr_FR|en_EN
+    id: '\d+'
+
+event_remove:
+  path:
+    fr: /dashboard/remove-event/{id}
+    en: /{_locale}/dashboard/remove-event/{id}
+  controller: App\Controller\DashBoardController::removeEvent
+  requirements:
+    _locale: fr_FR|en_EN
+    id: '\d+'
+
+session_event_delete:
+  path:
+    fr: /dashboard/session-event/delete
+    en: /{_locale}/dashboard/session-event/delete
+  controller: App\Controller\DashBoardController::deleteSessionEvent
+  requirements:
+    _locale: fr_FR|en_EN

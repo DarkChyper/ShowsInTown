@@ -1,0 +1,58 @@
+# commun
+twig.format.date: d/M/Y
+datepicker.locale.date: dd/mm/yyyy
+
+# menu
+menu.logo.alt: Logo de Shows In Town
+menu.home: Accueil
+menu.dashboard: Tableau de bord
+
+# home
+## filter
+home.filter.title: Formulaire de recherche d'évènements
+home.filter.info: Aucun champ n'est obligatoire. Par défaut, le filtre retournera les évènements des 3 prochains mois.
+home.filter.dateFrom.label: De
+home.filter.date.help: Date au format DD/MM/AAAA
+home.filter.dateTo.label: au
+home.filter.artist: Artiste
+home.filter.city: Lieu
+home.filter.submit: Rechercher
+
+## list
+home.title.list: Liste des évènements
+home.list.empty: Il n'y a pas de résultat pour votre recherche
+
+# dashboard
+dashboard.title.edit: Editer l'évènement n°
+dashboard.title.btn: Annuler
+dashboard.title.create: Créer un nouvel événement
+dashboard.title.list: Liste des évènements
+
+## edit/create form
+form.edit.event.date: Date
+form.edit.event.date.help: Date au format DD/MM/AAAA
+form.edit.event.date.format: dd/MM/yyyy
+
+form.edit.event.artist: Artiste
+form.edit.event.city: Lieu
+form.edit.event.submit: Enregistrer
+
+## listing
+list_event.tab.date: Date
+list_event.tab.artist: Artiste
+list_event.tab.city: Lieu
+list_event.tab.modify: Modifier
+list_event.tab.delete: Supprimer
+list_event.delete.confirm.begin: Supprimer l\'évènement \'
+list_event.delete.confirm.end: \' ?
+
+
+# edit-event
+edit_event.msf.success: Enregistrement effectué
+edit_event.msf.error: L'évènement {{id}} n'existe pas
+
+# remove-event
+remove_event.msf.success: Evènement Supprimé
+
+# session
+service.session.event.exception: Il n'y a pas d'évènement en session
