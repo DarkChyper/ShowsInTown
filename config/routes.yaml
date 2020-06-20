@@ -6,6 +6,14 @@ homepage:
   requirements:
     _locale: fr_FR|en_EN
 
+autocomplete_artist:
+  path:
+    fr: /autocomplete/artist
+    en: /{_locale}/autocomplete/artist
+  controller: App\Controller\HomeController::autoCompleteArtist
+  requirements:
+    _locale: fr_FR|en_EN
+
 dashboard:
   path:
     fr: /dashboard

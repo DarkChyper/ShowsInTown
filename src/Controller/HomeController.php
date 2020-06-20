@@ -9,6 +9,7 @@ use App\Form\Type\EventFilterType;
 use App\Service\CityService;
 use App\Service\EventService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -45,5 +46,14 @@ class HomeController extends AbstractController
             'events' => $events,
             'filterForm' => $eventFilterForm->createView(),
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function autoCompleteArtist(Request $request){
+        $results = Array();
+        return new JsonResponse($results);
     }
 }

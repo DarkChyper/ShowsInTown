@@ -31,4 +31,16 @@ class ArtistRepository extends ServiceEntityRepository
             ->setParameter('artistName', $name);
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param string $name
+     * @return int|mixed|string
+     */
+    public function findByName(string $name){
+        $qb = $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('upper(a.name) like :artistName')
+            ->setParameter('artistName', strtoupper($name));
+        return $qb->getQuery()->getResult();
+    }
 }
