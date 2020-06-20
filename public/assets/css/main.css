@@ -41,7 +41,7 @@ img.locale-icon {
 }
 
 /* formulaires */
-#formcard {
+.bottom-marged {
     margin-bottom: 2rem;
 }
 
@@ -53,7 +53,7 @@ img.locale-icon {
 /* Table*/
 
 .tab-header {
-    border-bottom: 2px solid #e85711;
+    border-bottom: 2px solid rgba(180, 8, 29, 1);
 }
 
 .tab-role-col, .tab-role-row {
@@ -67,7 +67,8 @@ img.locale-icon {
 }
 
 .tab-row-striped:nth-of-type(2n+1) {
-    background-color: rgba(232,87,17,.15);
+
+    background-color: rgba(180, 8, 29,.15);
 }
 
 

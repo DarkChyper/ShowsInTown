@@ -22,7 +22,7 @@ class City
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $_id;
+    protected $id;
 
     /**
      * @var string name of the city
@@ -40,7 +40,7 @@ class City
      */
     public function __construct()
     {
-        $this->_id = 1;
+        $this->id = 1;
     }
 
     /**
@@ -48,7 +48,7 @@ class City
      */
     public function getId(): int
     {
-        return $this->_id;
+        return $this->id;
     }
 
     /**
@@ -56,7 +56,7 @@ class City
      */
     public function setId(int $id): void
     {
-        $this->_id = $id;
+        $this->id = $id;
     }
 
     /**

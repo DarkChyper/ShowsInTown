@@ -31,6 +31,7 @@ class EventType extends AbstractType
      * EventType constructor.
      * @param TranslatorInterface $translator
      * @param CityRepository $cityRepository
+     * @param ArtistRepository $artistRepository
      */
     public function __construct(TranslatorInterface $translator, CityRepository $cityRepository, ArtistRepository $artistRepository)
     {
@@ -42,8 +43,8 @@ class EventType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $cityChoice = $this->resolveCity($options);
-        $artistChoice = $this->resolveArtist($options);
+        $cityChoice = $options['data']->getCityChoice() === null ? '1': $options['data']->getCityChoice();
+        $artistChoice = $options['data']->getArtistChoice() === null ? '1': $options['data']->getArtistChoice();
 
         $builder
             ->add('id', IntegerType::class, [
@@ -72,21 +73,6 @@ class EventType extends AbstractType
             ]);
     }
 
-    /**
-     * @param array $options
-     * @return string
-     */
-    protected function resolveCity(array $options){
-        return $options['data']->getCityChoice() === null ? '1': $options['data']->getCityChoice();
-    }
-
-    /**
-     * @param array $options
-     * @return string
-     */
-    protected function resolveArtist(array $options){
-        return $options['data']->getArtistChoice() === null ? '1': $options['data']->getArtistChoice();
-    }
 
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -3,7 +3,7 @@
     <div class="form-group col-md-10 offset-md-1">
         <label id="eventDateLabel" for="event_date">{{ 'form.edit.event.date' | trans }}</label>
         {% if form_errors(eventForm.date) != null %}
-            <spall id="eventDateError" class="form-text text-danger form-error">{{ form_errors(eventForm.date) }}</spall>
+            <small id="eventDateError" class="form-text text-danger form-error">{{ form_errors(eventForm.date) }}</small>
         {% endif %}
         {{ form_widget(eventForm.date, {
 

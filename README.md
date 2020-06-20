@@ -4,6 +4,12 @@ Application web permettant de lister les concerts de la base de données, de les
 
 # Versions
 
+## TODO
+
+  * Autocomplétion du champ de recherche d'artiste
+  * placer un logger
+  * tests
+
 ## v0.1.0 
 
   * Création des entités "artist" et "city"
@@ -13,4 +19,7 @@ Application web permettant de lister les concerts de la base de données, de les
   * Internationalisation de l'pplication
   * Création d'un évènement OK
   * Suppression d'un évènement OK
-  
+  * Edition d'un évènement OK
+  * Creation de l'objet "eventFilter"
+  * Affichage des évènements des 3 prochains mois OK
+  * Filtre de recherche OK

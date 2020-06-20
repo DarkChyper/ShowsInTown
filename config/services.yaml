@@ -6,8 +6,8 @@
 parameters:
     locale: 'fr_FR'
     app_locales: [fr_FR, en_EN]
-    paginator.first.page: 1
-    paginator.elt.by.page: 7
+    app.paginator.first.page: 1
+    app.paginator.elt-by-page: 7
 
 services:
     # default configuration for services in *this* file
@@ -32,14 +32,8 @@ services:
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
+
     Twig\Extensions\IntlExtension: ~
-
-
-    App\Service\EventService:
-        arguments:
-            $paginatorFirstPage: '%paginator.first.page%'
-            $paginatorEltByPage: '%paginator.elt.by.page%'
-
 
     app.exception_listener:
         class: App\EventListener\ShowsInTownExceptionListener

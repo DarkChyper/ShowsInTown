@@ -5,34 +5,36 @@ namespace App\Service;
 
 
 use App\Entity\Event;
+use App\Entity\EventFilter;
 use App\Exception\PersistEventException;
 use App\Repository\EventRepository;
+use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
+use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EventService
 {
-    protected $eventRepository;
-    protected $mfs;
+    const INTERVAL_TIME = "P3M";
     protected $translator;
     protected $paginator;
-
-    private $_paginatorFirstPage;
-    private $_paginatorEltByPage;
+    protected $eventRepository;
+    protected $mfs;
 
     /**
      * EventService constructor.
-     * @param int $paginatorFirstPage
-     * @param int $paginatorEltByPage
-     * @param EventRepository $eventRepository
-     * @param MessageFlashService $messageFlashService
      * @param TranslatorInterface $translator
      * @param PaginatorInterface $paginator
+     * @param EventRepository $eventRepository
+     * @param MessageFlashService $messageFlashService
      */
-    public function __construct(int $paginatorFirstPage, int $paginatorEltByPage, EventRepository $eventRepository, MessageFlashService $messageFlashService, TranslatorInterface $translator, PaginatorInterface $paginator)
+    public function __construct(
+        TranslatorInterface $translator,
+        PaginatorInterface $paginator,
+        EventRepository $eventRepository,
+        MessageFlashService $messageFlashService
+    )
     {
-        $this->_paginatorFirstPage = $paginatorFirstPage;
-        $this->_paginatorEltByPage = $paginatorEltByPage;
         $this->eventRepository = $eventRepository;
         $this->mfs = $messageFlashService;
         $this->translator = $translator;
@@ -66,7 +68,7 @@ class EventService
     public function getEvent($id)
     {
         $event = $this->eventRepository->findOneBy(["id" => $id]);
-        if(!$event){
+        if (!$event) {
             throw new PersistEventException($this->translator->trans("edit_event.msf.error", ['{{id}}' => $id]));
         }
         return $event;
@@ -82,7 +84,7 @@ class EventService
         if ($result === 1) {
             $this->mfs->messageSuccess($this->translator->trans("remove_event.msf.success"));
         } else {
-            $this->mfs->messageWarning($this->translator->trans("remove_event.msf.warning.begin") . " " . $id . " " . $this->translator->trans("remove_event.msf.warning.end"));
+            $this->mfs->messageWarning($this->translator->trans("edit_event.msf.error", ["{{id}}" => $id]));
         }
     }
 
@@ -106,6 +108,31 @@ class EventService
             'align' => 'center'
         ]);
         return $pagination;
+    }
+
+    public function getFilteredEvents(EventFilter $eventFilter)
+    {
+        if($eventFilter->isEmpty()){
+            return $this->eventRepository->getFilteredEvents($this->getDefaultEventFilter());
+        }
+        return $this->eventRepository->getFilteredEvents($eventFilter);
+    }
+
+    public function getDefaultEventFilter()
+    {
+        $eventFilter = new EventFilter();
+        $eventFilter->setFromDate(new DateTime());
+        try {
+            // l'interval pourrait être un paramètre d'application
+            $now = new DateTime();
+            $interval = new \DateInterval(self::INTERVAL_TIME);
+            $eventFilter->setToDate($now->add($interval));
+        } catch (\Exception $e) {
+            // si le dateInterval est faux  on prend la date du jour
+            $eventFilter->setToDate(new DateTime());
+        }
+
+        return $eventFilter;
     }
 
 

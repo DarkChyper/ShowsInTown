@@ -5,6 +5,7 @@ namespace App\Repository;
 
 
 use App\Entity\Event;
+use App\Entity\EventFilter;
 use App\Exception\PersistEventException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -27,13 +28,52 @@ class EventRepository extends ServiceEntityRepository
      * @param Event $event
      * @throws PersistEventException
      */
-    public function saveEvent(Event $event){
+    public function saveEvent(Event $event)
+    {
         try {
             $this->getEntityManager()->persist($event);
             $this->getEntityManager()->flush();
         } catch (ORMException $e) {
             throw new PersistEventException($e->getMessage());
         }
+    }
+
+    public function getFilteredEvents(EventFilter $eventFilter)
+    {
+        $qb = $this->createQueryBuilder('fe')
+            ->addSelect('fe')
+            ->join('fe.artist', 'artiste')
+            ->addSelect('artiste')
+            ->join('fe.city', 'city')
+            ->addSelect('city');
+
+        if (null !== $eventFilter->getFromDate()) {
+
+            $qb->andWhere('fe.date >= :dateFrom');
+
+            $qb->setParameter('dateFrom', $eventFilter->getFromDate()->format("Y-m-d"));
+
+        }
+        if (null !== $eventFilter->getToDate()) {
+
+            $qb->andWhere('fe.date <= :dateTo');
+
+            $qb->setParameter('dateTo', $eventFilter->getToDate()->format("Y-m-d"));
+
+        }
+        if (null !== $eventFilter->getArtist()) {
+            $qb->andWhere('UPPER(artiste.name) = :artistName')
+                ->setParameter('artistName', strtoupper($eventFilter->getArtist()));
+        }
+        if (null !== $eventFilter->getCity()) {
+            $qb->andWhere('city.id = :cityId')
+                ->setParameter('cityId', $eventFilter->getCity());
+        }
+
+        $qb->orderBy('fe.date', 'ASC')
+        ->addOrderBy('artiste.name', 'ASC');
+
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -57,7 +97,8 @@ class EventRepository extends ServiceEntityRepository
      * @param Integer $id
      * @return int|mixed|string
      */
-    public function findOneByIdWithJoins(int $id){
+    public function findOneByIdWithJoins(int $id)
+    {
         $qb = $this->createQueryBuilder('e')
             ->addSelect('e')
             ->join('e.artist', 'artiste')
@@ -90,7 +131,7 @@ class EventRepository extends ServiceEntityRepository
         try {
             $em = $this->getEntityManager();
             $eventDB = $em->find(Event::class, $event->getId());
-            if(!$eventDB){
+            if (!$eventDB) {
                 $retour = false;
             } else {
                 $eventDB->setDate($event->getDate());

@@ -18,6 +18,7 @@ class SessionService
     protected $translator;
 
     const EVENT = "event";
+    const CITIES = "cities";
 
     /**
      * DateService constructor.
@@ -39,7 +40,7 @@ class SessionService
 
             $this->saveEventToSession(new Event());
         }
-        return $this->session->get(self::EVENT);
+        return $this->getEventSession();
     }
 
     /**

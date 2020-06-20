@@ -4,10 +4,8 @@
 namespace App\Controller;
 
 
-use App\Entity\Event;
 use App\Form\Type\EventType;
 use App\Service\EventService;
-use App\Service\MessageFlashService;
 use App\Service\SessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,20 +25,24 @@ class DashBoardController extends AbstractController
      * @param SessionService $sessionService
      * @return Response
      */
-    public function dashboard(Request $request, EventService $eventService, SessionService $sessionService){
+    public function dashboard(Request $request, EventService $eventService, SessionService $sessionService)
+    {
 
         $event = $sessionService->getOrCreateEventSession();
 
-        $eventForm = $this->createForm(EventType::class, $event, ["data"=>$event])->handleRequest($request);
+        $eventForm = $this->createForm(EventType::class,
+            $event,
+            ["data" => $event])
+            ->handleRequest($request);
         $sessionService->saveEventToSession($event);
 
-        if($eventForm->isSubmitted() && $eventForm->isValid()){
+        if ($eventForm->isSubmitted() && $eventForm->isValid()) {
             $eventService->save($event);
             $sessionService->deleteEventFromSession();
             return new RedirectResponse($this->generateUrl('dashboard'));
         }
 
-        $events = $eventService->getAllEventByPage($request->query->getInt('page',$this->getParameter('paginator.first.page')), $this->getParameter('paginator.elt.by.page'));
+        $events = $eventService->getAllEventByPage($request->query->getInt('page', $this->getParameter('app.paginator.first.page')), $this->getParameter('app.paginator.elt-by-page'));
 
         return $this->render('dashboard/dashboard.html.twig', [
             'current_page' => 'dashboard',
@@ -55,7 +57,8 @@ class DashBoardController extends AbstractController
      * @param EventService $eventService
      * @return RedirectResponse
      */
-    public function removeEvent(int $id, EventService $eventService){
+    public function removeEvent(int $id, EventService $eventService)
+    {
         $eventService->delete($id);
 
         return new RedirectResponse($this->generateUrl('dashboard'));
@@ -68,7 +71,8 @@ class DashBoardController extends AbstractController
      * @param SessionService $sessionService
      * @return RedirectResponse
      */
-    public function editEvent(int $id, EventService $eventService, SessionService $sessionService){
+    public function editEvent(int $id, EventService $eventService, SessionService $sessionService)
+    {
         $event = $eventService->getEvent($id);
         $event->prepareToEdit();
         $sessionService->saveEventToSession($event);
@@ -79,7 +83,8 @@ class DashBoardController extends AbstractController
      * @param SessionService $sessionService
      * @return RedirectResponse
      */
-    public function deleteSessionEvent(SessionService $sessionService){
+    public function deleteSessionEvent(SessionService $sessionService)
+    {
         $sessionService->deleteEventFromSession();
         return new RedirectResponse($this->generateUrl('dashboard'));
     }
