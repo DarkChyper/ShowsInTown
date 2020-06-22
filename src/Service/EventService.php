@@ -102,15 +102,35 @@ class EventService
     }
 
 
+    /**
+     * @param EventFilter $eventFilter
+     * @param $page
+     * @param $limit
+     * @return PaginationInterface
+     */
     public function getFilteredEvents( EventFilter $eventFilter, $page, $limit)
     {
         if($eventFilter->isEmpty()){
             $events = $this->eventRepository->getFilteredEvents($this->getDefaultEventFilter());
         } else {
+            $this->checkDates($eventFilter);
             $events = $this->eventRepository->getFilteredEvents($eventFilter);
         }
         return $this->paginator($events, $page, $limit);
     }
+
+    /**
+     * Inert from an to date if needed
+     * @param EventFilter $eventFilter
+     */
+    protected function checkDates(EventFilter $eventFilter){
+        if(!empty($eventFilter->getFromDate()) && !empty($eventFilter->getToDate()
+            && $eventFilter->getFromDate()->diff($eventFilter->getToDate())->invert === 1)){
+            $temp = $eventFilter->getFromDate();
+            $eventFilter->setFromDate($eventFilter->getToDate());
+            $eventFilter->setToDate($temp);
+        }
+}
 
     /**
      * @param $events
@@ -132,6 +152,9 @@ class EventService
         return $pagination;
     }
 
+    /**
+     * @return EventFilter
+     */
     public function getDefaultEventFilter()
     {
         $eventFilter = new EventFilter();
