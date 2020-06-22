@@ -51,7 +51,9 @@ class HomeController extends AbstractController
      */
     public function autoCompleteArtist(Request $request)
     {
-        $results = array();
+        $term = $request->get("search");
+        $repository = $this->getDoctrine()->getManager()->getRepository('App:Artist');
+        $results = $repository->autoCompleteByName($term);
         return new JsonResponse($results);
     }
 }

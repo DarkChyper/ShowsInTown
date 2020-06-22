@@ -37,6 +37,7 @@ class EventFilter
      */
     public function __construct()
     {
+        $this->artist = "";
     }
 
     /**

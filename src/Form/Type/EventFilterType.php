@@ -71,7 +71,8 @@ class EventFilterType extends AbstractType
             ])
             ->add('artist', TextType::class, [
                 'required' => false,
-                'label' => false
+                'label' => false,
+                'empty_data' => ''
             ]);
     }
 
