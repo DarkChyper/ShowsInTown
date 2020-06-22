@@ -1,0 +1,12 @@
+# event
+event.date.date: Date must be in MM/DD/YYYY format
+event.artist.type: This artist is not in our database
+event.artist.city: This city is not in our database
+
+# artist
+artist.name.length.min: Artist name must contain at least {{limit}} characters
+artist.name.length.max: Artist name cannot exceed {{limit}} characters
+
+# city
+city.name.length.min: City name must contain at least {{limit}} characters
+city.name.length.max: City name cannot exceed {{limit}} characters

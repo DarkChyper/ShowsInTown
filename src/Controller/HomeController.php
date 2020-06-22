@@ -4,11 +4,12 @@
 namespace App\Controller;
 
 
-use App\Entity\EventFilter;
 use App\Form\Type\EventFilterType;
-use App\Service\CityService;
+use App\Service\ArtistService;
 use App\Service\EventService;
+use App\Service\SessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,29 +22,41 @@ class HomeController extends AbstractController
 
     /**
      * @param Request $request
-     * @param CityService $cityService
+     * @param SessionService $sessionService
      * @param EventService $eventService
      * @return Response
      */
-    public function index(Request $request, CityService $cityService, EventService $eventService)
+    public function index(Request $request, SessionService $sessionService, EventService $eventService)
     {
-
-        $eventFilter = new EventFilter();
-        $events = array();
+        $eventFilter = $sessionService->getOrCreateEventFilterSession();
 
         $eventFilterForm = $this->createForm(EventFilterType::class, $eventFilter)->handleRequest($request);
 
         if ($eventFilterForm->isSubmitted() && $eventFilterForm->isValid()) {
-            $events = $eventService->getFilteredEvents($eventFilter);
+            $events = $eventService->getFilteredEvents($eventFilter, $request->query->getInt('page', $this->getParameter('app.paginator.first.page')), $this->getParameter('app.paginator.elt-by-page'));
         } else {
-            $events = $eventService->getFilteredEvents($eventService->getDefaultEventFilter());
+            $events = $eventService->getFilteredEvents($eventService->getDefaultEventFilter(), $request->query->getInt('page', $this->getParameter('app.paginator.first.page')), $this->getParameter('app.paginator.elt-by-page'));
         }
-
+        $sessionService->saveEventFilterToSession($eventFilter);
 
         return $this->render('homepage/home.html.twig', [
             'current_page' => 'homepage',
             'events' => $events,
             'filterForm' => $eventFilterForm->createView(),
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param ArtistService $artistService
+     * @return JsonResponse
+     */
+    public function autoCompleteArtist(Request $request, ArtistService $artistService)
+    {
+        $term = $request->get("search");
+        if(!empty($term)){
+            return new JsonResponse($artistService->autocompleteArtistName($term));
+        }
+        return new JsonResponse(array());
     }
 }

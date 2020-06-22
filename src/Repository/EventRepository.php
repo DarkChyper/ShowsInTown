@@ -61,11 +61,11 @@ class EventRepository extends ServiceEntityRepository
             $qb->setParameter('dateTo', $eventFilter->getToDate()->format("Y-m-d"));
 
         }
-        if (null !== $eventFilter->getArtist()) {
+        if (null !== $eventFilter->getArtist() && !empty(trim($eventFilter->getArtist()))) {
             $qb->andWhere('UPPER(artiste.name) = :artistName')
                 ->setParameter('artistName', strtoupper($eventFilter->getArtist()));
         }
-        if (null !== $eventFilter->getCity()) {
+        if (null !== $eventFilter->getCity() && 0 !== $eventFilter->getCity()) {
             $qb->andWhere('city.id = :cityId')
                 ->setParameter('cityId', $eventFilter->getCity());
         }

@@ -31,4 +31,17 @@ class ArtistRepository extends ServiceEntityRepository
             ->setParameter('artistName', $name);
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param string $name
+     * @return int|mixed|string
+     */
+    public function autoCompleteByName(string $name){
+        $qb = $this->createQueryBuilder('a')
+            ->select('a.name')
+            ->where('upper(a.name) like :artistName')
+            ->setParameter('artistName', strtoupper("%".$name."%"));
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }

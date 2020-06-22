@@ -22,7 +22,7 @@ class EventFilter
     protected $toDate;
 
     /**
-     * @var City
+     * @var int
      */
     protected $city;
 
@@ -37,6 +37,7 @@ class EventFilter
      */
     public function __construct()
     {
+        $this->artist = "";
     }
 
     /**
@@ -72,17 +73,17 @@ class EventFilter
     }
 
     /**
-     * @return City
+     * @return int
      */
-    public function getCity(): ?City
+    public function getCity(): ?int
     {
         return $this->city;
     }
 
     /**
-     * @param City $city
+     * @param int $city
      */
-    public function setCity(City $city): void
+    public function setCity(int $city): void
     {
         $this->city = $city;
     }

@@ -56,3 +56,4 @@ remove_event.msf.success: Evènement Supprimé
 
 # session
 service.session.event.exception: Il n'y a pas d'évènement en session
+service.session.filter.exception: Il n'y a pas de filtre en session

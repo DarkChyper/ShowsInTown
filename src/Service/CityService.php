@@ -28,7 +28,7 @@ class CityService
      */
     public function getCityChoiceList(){
         $result = array();
-        $result[""] = "";
+        $result[""] = "0";
 
         $cities = $this->cityRepository->findAll();
         if(!empty($cities)){
