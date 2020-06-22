@@ -5,7 +5,9 @@ namespace App\EventListener;
 
 
 
+use App\Exception\GlobalSITException;
 use App\Exception\PersistEventException;
+use App\Exception\SessionException;
 use App\Service\MessageFlashService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -32,8 +34,8 @@ class ShowsInTownExceptionListener
         // You get the exception object from the received event
         $exception = $event->getThrowable();
 
-        if ($exception instanceof PersistEventException) {
-            $event->setResponse($this->catchException('dashboard', $exception->getMessage()));
+        if ($exception instanceof GlobalSITException) {
+            $event->setResponse($this->catchException($exception->getPath(), $exception->getMessage()));
         } else {
             return false;
         }

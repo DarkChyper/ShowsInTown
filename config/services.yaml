@@ -7,7 +7,7 @@ parameters:
     locale: 'fr_FR'
     app_locales: [fr_FR, en_EN]
     app.paginator.first.page: 1
-    app.paginator.elt-by-page: 7
+    app.paginator.elt-by-page: 5
 
 services:
     # default configuration for services in *this* file

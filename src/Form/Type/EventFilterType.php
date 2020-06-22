@@ -7,6 +7,7 @@ namespace App\Form\Type;
 
 
 use App\Entity\City;
+use App\Service\CityService;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,12 +26,19 @@ class EventFilterType extends AbstractType
     protected $translator;
 
     /**
+     * @var CityService
+     */
+    protected $cityService;
+
+    /**
      * EventFilterType constructor.
      * @param TranslatorInterface $translator
+     * @param CityService $cityService
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, CityService $cityService)
     {
         $this->translator = $translator;
+        $this->cityService = $cityService;
     }
 
     /**
@@ -54,11 +62,11 @@ class EventFilterType extends AbstractType
                 'html5' => false,
                 'format' => $this->translator->trans('form.edit.event.date.format')
             ])
-            ->add('city', EntityType::class,[
-                'class' => City::class,
-                'required' => false,
+            ->add('city', ChoiceType::class,[
+                'choices' => $this->cityService->getCityChoiceList(),
+                'required' => true,
                 'label' => false,
-                'choice_label' => 'name',
+
                 'multiple' => false,
             ])
             ->add('artist', TextType::class, [

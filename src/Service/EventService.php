@@ -9,13 +9,15 @@ use App\Entity\EventFilter;
 use App\Exception\PersistEventException;
 use App\Repository\EventRepository;
 use DateTime;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use phpDocumentor\Reflection\DocBlock\Tags\Throws;
+
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EventService
 {
     const INTERVAL_TIME = "P3M";
+    const PATH_DASHBOARD = "dashboard";
     protected $translator;
     protected $paginator;
     protected $eventRepository;
@@ -51,7 +53,7 @@ class EventService
     {
         if ($event->getCityChoice() > 0) {
             if (!$this->eventRepository->updateEvent($event)) {
-                throw new PersistEventException($this->translator->trans("edit_event.msf.error", ['{{id}}' => $event->getId()]));
+                throw new PersistEventException(self::PATH_DASHBOARD, $this->translator->trans("edit_event.msf.error", ['{{id}}' => $event->getId()]));
             }
         } else {
             $this->eventRepository->saveEvent($event);
@@ -69,7 +71,7 @@ class EventService
     {
         $event = $this->eventRepository->findOneBy(["id" => $id]);
         if (!$event) {
-            throw new PersistEventException($this->translator->trans("edit_event.msf.error", ['{{id}}' => $id]));
+            throw new PersistEventException(self::PATH_DASHBOARD,$this->translator->trans("edit_event.msf.error", ['{{id}}' => $id]));
         }
         return $event;
     }
@@ -96,9 +98,29 @@ class EventService
      */
     public function getAllEventByPage($page, $limit)
     {
+        return $this->paginator($this->eventRepository->getAllEvents(), $page, $limit);
+    }
 
+
+    public function getFilteredEvents( EventFilter $eventFilter, $page, $limit)
+    {
+        if($eventFilter->isEmpty()){
+            $events = $this->eventRepository->getFilteredEvents($this->getDefaultEventFilter());
+        } else {
+            $events = $this->eventRepository->getFilteredEvents($eventFilter);
+        }
+        return $this->paginator($events, $page, $limit);
+    }
+
+    /**
+     * @param $events
+     * @param $page
+     * @param $limit
+     * @return PaginationInterface
+     */
+    protected function paginator($events, $page, $limit){
         $pagination = $this->paginator->paginate(
-            $this->eventRepository->getAllEvents(),
+            $events,
             $page,
             $limit
         );
@@ -108,14 +130,6 @@ class EventService
             'align' => 'center'
         ]);
         return $pagination;
-    }
-
-    public function getFilteredEvents(EventFilter $eventFilter)
-    {
-        if($eventFilter->isEmpty()){
-            return $this->eventRepository->getFilteredEvents($this->getDefaultEventFilter());
-        }
-        return $this->eventRepository->getFilteredEvents($eventFilter);
     }
 
     public function getDefaultEventFilter()

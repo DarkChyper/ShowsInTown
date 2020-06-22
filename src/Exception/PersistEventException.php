@@ -4,7 +4,7 @@
 namespace App\Exception;
 
 
-class PersistEventException extends \RuntimeException
+class PersistEventException extends GlobalSITException
 {
 
 }

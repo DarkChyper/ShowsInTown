@@ -4,14 +4,10 @@ Application web permettant de lister les concerts de la base de données, de les
 
 # Versions
 
-## TODO
-
-  * paginer les résultats en page accueil
-
 ## v0.2.0
 
   * Autocomplétion du champ de recherche d'artiste
-  * placer un logger
+  * paginer les résultats en page accueil
   * tests
   
 ## v0.1.0 
