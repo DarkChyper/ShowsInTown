@@ -3,7 +3,8 @@
     <div class="form-group col-md-5 offset-md-1">
         <label id="filterDateFromLabel" for="event_date">{{ 'home.filter.dateFrom.label' | trans }}</label>
         {% if form_errors(filterForm.fromDate) != null %}
-            <small id="filterDateFromError" class="form-text text-danger form-error">{{ form_errors(filterForm.fromDate) }}</small>
+            <small id="filterDateFromError"
+                   class="form-text text-danger form-error">{{ form_errors(filterForm.fromDate) }}</small>
         {% endif %}
         {{ form_widget(filterForm.fromDate, {
 
@@ -17,7 +18,8 @@
     <div class="form-group col-md-5">
         <label id="filterDateToLabel" for="event_date">{{ 'home.filter.dateTo.label' | trans }}</label>
         {% if form_errors(filterForm.toDate) != null %}
-            <small id="filterDateToError" class="form-text text-danger form-error">{{ form_errors(filterForm.toDate) }}</small>
+            <small id="filterDateToError"
+                   class="form-text text-danger form-error">{{ form_errors(filterForm.toDate) }}</small>
         {% endif %}
         {{ form_widget(filterForm.toDate, {
             'attr': {
@@ -32,7 +34,8 @@
     <div class="form-group col-md-5 offset-md-1">
         <label id="filterArtistLabel" for="event_artist">{{ 'home.filter.artist' | trans }}</label>
         {% if form_errors(filterForm.artist) != null %}
-            <small id="filterArtistError" class="form-text text-danger form-error">{{ form_errors(filterForm.artist) }}</small>
+            <small id="filterArtistError"
+                   class="form-text text-danger form-error">{{ form_errors(filterForm.artist) }}</small>
         {% endif %}
         {{ form_widget(filterForm.artist, {
             'attr': {
@@ -41,11 +44,14 @@
                 'data-url': path('autocomplete_artist')
             }
         }) }}
+
+
     </div>
     <div class="form-group col-md-5">
         <label id="filterArtistLabel" for="event_city">{{ 'home.filter.city' | trans }}</label>
         {% if form_errors(filterForm.city) != null %}
-            <spall id="filterCityError" class="form-text text-danger form-error">{{ form_errors(filterForm.city) }}</spall>
+            <spall id="filterCityError"
+                   class="form-text text-danger form-error">{{ form_errors(filterForm.city) }}</spall>
         {% endif %}
         {{ form_widget(filterForm.city, {
             'attr': {

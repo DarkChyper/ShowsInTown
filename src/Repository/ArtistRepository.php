@@ -42,6 +42,6 @@ class ArtistRepository extends ServiceEntityRepository
             ->where('upper(a.name) like :artistName')
             ->setParameter('artistName', strtoupper("%".$name."%"));
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getArrayResult();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Form\Type\EventFilterType;
+use App\Service\ArtistService;
 use App\Service\EventService;
 use App\Service\SessionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,13 +48,15 @@ class HomeController extends AbstractController
 
     /**
      * @param Request $request
+     * @param ArtistService $artistService
      * @return JsonResponse
      */
-    public function autoCompleteArtist(Request $request)
+    public function autoCompleteArtist(Request $request, ArtistService $artistService)
     {
         $term = $request->get("search");
-        $repository = $this->getDoctrine()->getManager()->getRepository('App:Artist');
-        $results = $repository->autoCompleteByName($term);
-        return new JsonResponse($results);
+        if(!empty($term)){
+            return new JsonResponse($artistService->autocompleteArtistName($term));
+        }
+        return new JsonResponse(array());
     }
 }

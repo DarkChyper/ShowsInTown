@@ -38,26 +38,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        /*$(function() {
-            $("input[data-id=artistNames]").autocomplete({
-                source: function (request, response) {
-                    var recherche = $("input[data-id=artistName]").val();
-                    var objData = 'search=' + recherche;
-                    var url = $(this.element).attr('data-url');
-
-                    $.ajax({
-                        url: url,
-                        data: objData,
-                        dataType: 'json',
-                        method: 'post'
-                    }).done(function (data) {
-                        response(data);
-                    });
-                },
-                minLength: 2
-            })
-        });*/
-
-    </script>
+    <script src="{{ asset('assets/js/autocomplete-artist.js') }}" ></script>
 {% endblock %}
