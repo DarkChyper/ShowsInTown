@@ -40,7 +40,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.fr.min.js"
             integrity="sha256-IRibTuqtDv2uUUN/0iTrhnrvvygNczxRRAbPgCbs+LE=" crossorigin="anonymous"></script>
 
-    <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+    <script>
+        $('.js-datepicker').datepicker({
+            format: "{{ 'datepicker.locale.date' | trans }}",
+            weekStart: 1,
+            startView: 0,
+            maxViewMode: 2,
+            autoclose: true,
+            todayBtn: "linked",
+            language: "{{ app.request.locale }}",
+            orientation: "bottom auto",
+            daysOfWeekHighlighted: "0",
+            calendarWeeks: true,
+            todayHighlight: true
+        });</script>
 {% endblock %}
 
 </body>

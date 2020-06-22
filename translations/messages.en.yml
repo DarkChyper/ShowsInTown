@@ -3,14 +3,30 @@ twig.format.date: M/d/Y
 datepicker.locale.date: mm/dd/yyyy
 
 # menu
-menu.logo.alt: Shows In Town logo
+menu.logo.alt: Shows int Town logo
 menu.home: Homepage
-menu.dashboard: DashBoard
+menu.dashboard: Dashboard
+
+# home
+## filter
+home.filter.title: Search events form
+home.filter.info: No field is required. By default, the filter returns the events of the next 3 months.
+home.filter.dateFrom.label: From
+home.filter.date.help: Date format MM/DD/YYYY
+home.filter.dateTo.label: to
+home.filter.artist: Artist
+home.filter.city: Place
+home.filter.submit: Find
+
+## list
+home.title.list: List of events
+home.list.empty: There is no result for your search, try other criteria
 
 # dashboard
-dashboard.title.edit: Editer l'évènement
-dashboard.title.create: Créer un nouvel événement
-dashboard.title.list: Liste des évènements
+dashboard.title.edit: Edit event \#
+dashboard.title.btn: Cancel
+dashboard.title.create: Create new event
+dashboard.title.list: List of events
 
 ## edit/create form
 form.edit.event.date: Date
@@ -30,8 +46,14 @@ list_event.tab.delete: Delete
 list_event.delete.confirm.begin: Delete the event \'
 list_event.delete.confirm.end: \' ?
 
+
 # edit-event
 edit_event.msf.success: Registration completed
 edit_event.msf.error: Event {{id}} does not exist
+
 # remove-event
 remove_event.msf.success: Event deleted
+
+# session
+service.session.event.exception: There is no event in session
+service.session.filter.exception: There is no filter in session
