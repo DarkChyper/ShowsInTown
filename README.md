@@ -4,6 +4,10 @@ Application web permettant de lister les concerts de la base de données, de les
 
 # Versions
 
+## v0.2.1
+
+  * Amélioration de l'affichage du datepicker
+
 ## v0.2.0
 
   * Autocomplétion du champ de recherche d'artiste
